@@ -35,20 +35,66 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="css/foodforyou.css">
+<script type="text/javascript">
+$(document).ready(function(){
+	  // Add smooth scrolling to all links in navbar + footer link
+	  $(document).on('click', ".navbar a, footer a[href='#home']", function(event) {
+	    // Make sure this.hash has a value before overriding default behavior
+	    if (this.hash !== "") {
+	      // Prevent default anchor click behavior
+	      event.preventDefault();
+
+	      // Store hash
+	      var hash = this.hash;
+
+	      // Using jQuery's animate() method to add smooth page scroll
+	      // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
+	      $('html, body').animate({
+	        scrollTop: $(hash).offset().top
+	      }, 900, function(){
+	   
+	        // Add hash (#) to URL when done scrolling (default click behavior)
+	        window.location.hash ="" + hash;
+	      });
+	    } // End if
+	  });
+	  
+	  $(window).scroll(function() {
+	    $(".slideanim").each(function(){
+	      var pos = $(this).offset().top;
+
+	      var winTop = $(window).scrollTop();
+	        if (pos < winTop + 600) {
+	          $(this).addClass("slide");
+	        }
+	    });
+	  });
+	});
+</script>
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="50">
 	<header>
 		<nav class="navbar navbar-expand-sm navbar-inverse navbar-fixed-top">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#">FoodForYou</a>
+					<button type="button" class="navbar-toggle" data-toggle="collapse"
+						data-target="#myNavbar"></button>
+					<a class="navbar-brand" href="#home">FoodForYou</a>
 				</div>
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="#home">Home</a></li>
-					<li><a href="#">About Us</a></li>
-					<li><a href="#">Contact</a></li>
+					<li><a href="#aboutus">About Us</a></li>
+					<li><a href="#feedback">Feedback</a></li>
+					<li class="dropdown"><a class="dropdown-toggle"
+						data-toggle="dropdown" href="#">Contact Us<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#"><span
+									class="glyphicon glyphicon-envelope"></span>
+									 foodforyouad@gmail.com</a></li>
+							<li><a href="#"><span
+									class="glyphicon glyphicon-phone-alt"></span>  9901633085</a></li>
+						</ul></li>
 				</ul>
-
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="#signup" data-toggle="modal"><span
 							class="glyphicon glyphicon-user"></span> Signup</a></li>
@@ -59,7 +105,7 @@
 		</nav>
 	</header>
 	<!-- Home -->
-	<div id="home">
+	<div id="home" class="slideanim">
 		<div class="bg-overlay"></div>
 		<div class="center text-center">
 			<div class="banner">
@@ -69,19 +115,19 @@
 				<h4>Home made hygiene food!!!</h4>
 			</div>
 			<marquee>
-				<h5>We are currently serving lunch(12:45 PM to 2:00 PM) only in
-					Manyatha Tech Park.!!</h5>
+				<h5>We are currently serving lunch(from 12:45 PM to 2:00 PM)
+					only in Manyatha Tech Park.!!</h5>
 			</marquee>
 		</div>
 		<div class="bottom text-center">
-			<a id="scrollDownArrow" href="#footer"><i
+			<a id="scrollDownArrow" href="#aboutus"><i
 				class="fa fa-chevron-down"></i></a>
 		</div>
 
 	</div>
 
 	<!-- About Us -->
-	<div class="container-fluid">
+	<div id="aboutus" class="container-fluid slideanim">
 		<div id="story" class="light-wrapper">
 			<section class="ss-style-top"></section>
 			<div class="container inner">
@@ -124,6 +170,58 @@
 			</div>
 			<!-- /.container -->
 			<section class="ss-style-bottom"></section>
+		</div>
+	</div>
+
+	<!-- Products -->
+	<div id="products" class="container-fluid slideanim" style="display: none">
+		<div class="jumbotron text-center"></div>
+	</div>
+
+	<!-- Feedback -->
+	<div id="feedback" class="container-fluid slideanim">
+		<div id="story" class="light-wrapper">
+			<div class="container inner">
+				<h2 class="section-title text-center">Feedback</h2>
+				<div class="jumbotron text-center">
+					<form id="feedbackfrm" method="post" action="" role="form"
+						class="form-horizontal">
+						<div class="form-group">
+							<label class="text-primary control-label col-md-4"><b>Name
+									: </b><font color="red">*</font></label>
+							<div class="col-md-6">
+								<input name="feedback[name]" type="text"
+									placeholder="Please Enter Your Name Ex: Mahesh"
+									autofocus="autofocus" required="required" class="form-control" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="text-primary control-label col-md-4"><b>Phone
+									Number : </b><font color="red">*</font></label>
+							<div class="col-md-6">
+								<input name="feedback[phone]" type="tel" pattern="\d{10}"
+									placeholder="7760121567" required="required"
+									class="form-control" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="text-primary control-label col-md-4"><b>Message
+									: </b><font color="red">*</font></label>
+							<div class="col-md-6">
+								<textarea class="form-control rounded-0" id="fbmessage" rows="5"
+									required="required"></textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-4"></div>
+							<div class="col-md-6">
+								<input type="submit" value="Send" class="btn btn-info" /> <input
+									type="reset" name="Reset" value="Clear" class="btn btn-info">
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
 		</div>
 	</div>
 
@@ -259,14 +357,12 @@
 		</div>
 	</div>
 
-	<section class="ss-style-top"></section>
-
-	<div class="container-fluid text-center">
+	<div class="container-fluid text-center slideanim">
 		<a href="#home" title="To Top"> <span
 			class="glyphicon glyphicon-chevron-up"></span>
 		</a>
 	</div>
-	<footer id="footer" class="dark-wrapper">
+	<footer id="footer" class="dark-wrapper slideanim">
 		<div class="container inner">
 			<div class="row">
 				<span class="text-center">&copy; 2018 FoodForYou</span>
